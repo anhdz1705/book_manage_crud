@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: book_manage_postgres
+    environment:
+      POSTGRES_DB: book_manage_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - book_manage_pgdata:/var/lib/postgresql/data
+
+volumes:
+  book_manage_pgdata:
