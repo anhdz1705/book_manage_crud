@@ -76,7 +76,20 @@ from .serializers import BookSerializer
 #             status=status.HTTP_200_OK
 #         )
 
+# class BookViewSet(ModelViewSet):
+#     queryset = Book.objects.all().order_by('id')
+#     serializer_class = BookSerializer
+#     permission_classes = [IsAuthenticated]
+
+
+from .paginations import BookPagination
+from .filters import filter_books
+
+
 class BookViewSet(ModelViewSet):
-    queryset = Book.objects.all().order_by('id')
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated]
+    pagination_class = BookPagination
+
+    def get_queryset(self):
+        queryset = Book.objects.all().order_by('id')
+        return filter_books(queryset, self.request.query_params)
