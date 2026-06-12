@@ -85,7 +85,6 @@ from .serializers import BookSerializer
 from .paginations import BookPagination
 from .filters import filter_books
 
-
 class BookViewSet(ModelViewSet):
     serializer_class = BookSerializer
     pagination_class = BookPagination
