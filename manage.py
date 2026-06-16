@@ -2,10 +2,17 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+BACKEND_DIR = PROJECT_ROOT / "book-backend"
 
 
 def main():
     """Run administrative tasks."""
+    sys.argv[0] = str(PROJECT_ROOT / "manage.py")
+    os.chdir(BACKEND_DIR)
+    sys.path.insert(0, str(BACKEND_DIR))
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'book_manage.settings')
     try:
         from django.core.management import execute_from_command_line

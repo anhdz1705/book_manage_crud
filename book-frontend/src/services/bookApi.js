@@ -1,30 +1,24 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 
-const API_URL = "http://127.0.0.1:8000/api/books/";
+export const getBooks = ({
+  page = 1,
+  pageSize = 20,
+  title = "",
+  author = "",
+} = {}) =>
+  apiClient.get("/books/", {
+    params: {
+      page,
+      page_size: pageSize,
+      title,
+      author,
+    },
+  });
 
-export const getBooks = (page = 1, pageSize = 20, title = "", author = "") => {
-    return axios.get(API_URL, {
-        params: {
-            page,
-            page_size: pageSize,
-            title,
-            author,
-        },
-    });
-};
+export const getBookDetail = (id) => apiClient.get(`/books/${id}/`);
 
-export const getBookDetail = (id) => {
-    return axios.get(`${API_URL}${id}/`);
-};
+export const addBook = (book) => apiClient.post("/books/", book);
 
-export const addBook = (book) => {
-    return axios.post(API_URL, book);
-};
+export const updateBook = (id, book) => apiClient.put(`/books/${id}/`, book);
 
-export const updateBook = (id, book) => {
-    return axios.put(`${API_URL}${id}/`, book);
-};
-
-export const deleteBook = (id) => {
-    return axios.delete(`${API_URL}${id}/`);
-};
+export const deleteBook = (id) => apiClient.delete(`/books/${id}/`);
